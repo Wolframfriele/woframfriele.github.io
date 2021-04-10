@@ -1,1 +1,1 @@
-woframfriele.github.io
+wolframfriele.github.io
