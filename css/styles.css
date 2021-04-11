@@ -1,10 +1,17 @@
 body {
-    background-color: #1e1e1e;
+    background-color: #0f1014;
     font-family: Helvetica, Arial, sans-serif;
     color: #d3d3d3;
     padding: 0;
-    margin: 10px;
+    margin: 0;
     box-sizing: border-box;
+}
+
+.container {
+    background-color: #1e1e1e;
+    max-width: 1920px;
+    margin: auto;
+    padding: 10px;
 }
 
 img {
@@ -153,6 +160,7 @@ textarea {
     width: 100%;
     padding: 12px;
     margin: 12px 0;
+    font-family: Helvetica, Arial, sans-serif;
     box-sizing: border-box;
     resize: vertical;
     font-size: 1em;
@@ -224,7 +232,11 @@ footer li {
 @media(min-width: 700px) {
     /* Header */
     body {
-        margin: 10px 0;
+        margin: 0;
+    }
+
+    .container {
+        padding: 10px 0;
     }
 
     header,
