@@ -37,18 +37,22 @@
         <section>
             <img src="img/radio-telescope-small.jpg" srcset="img/radio-telescope.jpg" alt="" class="img-left">
             <h1 class="title-right">Let's get in touch</h1>
-            <form action="">
-                
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" placeholder="Your name">
-                
-                <label for="email">Email:</label>
-                <input type="text" id="email" name="email" placeholder="Your email">
-                
-                <label for="message">Message:</label>
-                <textarea name="message" id="message" cols="30" rows="10" placeholder="Your message"></textarea>
+            <form action="https://formspree.io/f/mayayvln" method="POST" accept-charset="utf-8">
+                <fieldset id="fs-frm-inputs">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="First and Last" required="">
+                    
+                    <label for="email">Email</label>
+                    <input type="email" id="email-address" name="_replyto" placeholder="Your email" required="">
+                    
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" cols="30" rows="10" 
+                              placeholder="Your message" required=""></textarea>
 
-                <input type="submit" value="Submit">
+                    <input type="hidden" name="_subject" id="email-subject" value="Contact Form Submission">
+
+                    <input type="submit" value="Submit">
+                </fieldset>
             </form>
         </section>
         <footer>

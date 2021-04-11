@@ -147,7 +147,13 @@ nav a:hover {
 
 /* Contact Page */
 
-input[type=password],
+#fs-frm-inputs {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+input[type=email],
 input[type=text] {
     width: 100%;
     padding: 12px;
