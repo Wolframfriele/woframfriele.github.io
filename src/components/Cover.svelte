@@ -4,13 +4,15 @@
 
 <style>
   .cover-image {
-  margin-top: 1em;
+    margin-top: 1em;
+    max-height: 100px;
+    object-fit: cover;
   }
 
   @media (min-width: 700px) {
     .cover-image {
       width: 100%;
-      max-height: 350px;
+      max-height: 250px;
       object-fit: cover;
       object-position: 50% 50%;
     }
@@ -26,6 +28,6 @@
   "
   src="img/{imageName}-mobile.webp" 
   width="1920"
-  height="350"
+  height="250"
   alt=""
   class="cover-image">

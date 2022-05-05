@@ -129,7 +129,7 @@
     {/if}
     {#if link}
       <em>
-        <a href="{link}" aria-label="Project: {title}">
+        <a rel="prefetch" href="projects/{link}" aria-label="Project: {title}">
            See project
         </a>
       </em>

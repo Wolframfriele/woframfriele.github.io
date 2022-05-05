@@ -1,4 +1,5 @@
 <script>
+	import Cover from '../components/Cover.svelte';
 	import Intro from '../components/Intro.svelte';
 	import Eyebrow from '../components/Eyebrow.svelte';
 	import Block from '../components/Block.svelte';
@@ -10,6 +11,7 @@
 </svelte:head>
 
 <header>
+	<Cover imageName="data-object" />
 	<Intro 
 		title="Don't be shy."
 		subTitle="I’m Utrecht based and am looking for opportunities in the Randstad.
