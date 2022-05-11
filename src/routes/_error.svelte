@@ -1,39 +1,30 @@
 <script>
+	import Cover from "../components/Cover.svelte";
+	import Eyebrow from "../components/Eyebrow.svelte";
+	import Block from "../components/Block.svelte";
+	import Hello from "../components/Hello.svelte";
 	export let status;
 	export let error;
 
 	const dev = process.env.NODE_ENV === 'development';
 </script>
 
-<style>
-	h1, p {
-		margin: 0 auto;
-	}
-
-	h1 {
-		font-size: 2.8em;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
-	}
-
-	p {
-		margin: 1em auto;
-	}
-
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
-	}
-</style>
-
 <svelte:head>
 	<title>{status}</title>
 </svelte:head>
-
-<h1>{status}</h1>
-
-<p>{error.message}</p>
+<header>
+	<Cover imageName="data-object" />
+</header>
+<section>
+	<Eyebrow copy="Error Message" left="0" />
+	<Block
+		title={status}
+		wideImage="radio-telescopes"
+		paragraph={error.message}
+		left=0
+	/>
+	<Hello left="1" />
+</section>
 
 {#if dev && error.stack}
 	<pre>{error.stack}</pre>
