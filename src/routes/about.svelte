@@ -1,13 +1,4 @@
 
-<script context="module">
-	export async function preload() {
-		const res = await this.fetch(`data/about.json`);
-		const content = await res.json();
-
-		return { content };
-	}
-</script>
-
 <script>
 	import Cover from "../components/Cover.svelte";
 	import Intro from "../components/Intro.svelte";
@@ -16,7 +7,7 @@
 	import Doubleblock from "../components/Doubleblock.svelte";
 	import CVentry from "../components/CVentry.svelte";
 	import Hello from "../components/Hello.svelte";
-	export let content;
+	import { about } from "../about";
 </script>
 
 <svelte:head>
@@ -60,7 +51,7 @@
 		title2="Education"
 	>
 		<div slot="part1">
-			{#each content.experience as entry}
+			{#each about.experience as entry}
 				<CVentry
 					start={entry.start}
 					end={entry.end}
@@ -70,7 +61,7 @@
 			{/each}
 		</div>
 		<div slot="part2">
-			{#each content.education as entry}
+			{#each about.education as entry}
 				<CVentry
 					title={entry.title}
 					description={entry.description}

@@ -16,7 +16,7 @@
             "start": "2015",
             "end": "2016_",
             "title": "Intern at Onesize (six months)",
-            "description": "I’d dreamed of working at Onesize ever since I was a kid, so an internship with the company was an amazing opportunity. My first 6 months at Onesize pushed me to a new level in my animation skills and were a great introduction into the world of employment."
+            "description": "I'd dreamed of working at Onesize ever since I was a kid, so an internship with the company was an amazing opportunity. My first 6 months at Onesize pushed me to a new level in my animation skills and were a great introduction into the world of employment."
         },
         {
             "start": "2012",
@@ -27,16 +27,28 @@
     ],
     "education": [
         {
-            "title": "Brilliant.org Introduction to Neural Networks",
-            "description": "In this course, you'll dissect the internal machinery of artificial neural nets through hands-on experimentation, not hairy mathematics. You'll develop intuition about the kinds of problems they are suited to solve, and by the end you’ll be ready to dive into the algorithms, or build one for yourself."
+            "title": "Udacity - Intro to Machine Learning",
+            "description": "This is a class that will teach you the end-to-end process of investigating data through a machine learning lens. It will teach you how to extract and identify useful features that best represent your data, a few of the most important machine learning algorithms, and how to evaluate the performance of your machine learning algorithms."
         },
         {
-            "title": "HU Open-ICT",
-            "description": "Project based education with a focus on things."
+            "title": "Elements of AI - Introduction to AI",
+            "description": "Course about some some of the various elements of AI."
         },
         {
-            "title": "Mograph Mentor full year online program",
+            "title": "Briliant.org - Introduction to Neural Networks",
+            "description": "In this course, you'll dissect the internal machinery of artificial neural nets through hands-on experimentation, not hairy mathematics. You'll develop intuition about the kinds of problems they are suited to solve, and by the end you'll be ready to dive into the algorithms, or build one for yourself."
+        },
+        {
+            "title": "Hogeschool Utrech - Open-ICT",
+            "description": "My current program; building interesting projects with a scrum team, while also building my own curriculum."
+        },
+        {
+            "title": "Mograph Mentor",
             "description": "Mograph Mentor is an online motion graphics training program, with an emphasis on career development. We save you time and money, by connecting you to industry professionals who will work with you to grow your portfolio and your skill set. This program is for students who are looking to pursue a full time career as a motion designer. My mentors during this program were Ryan Summers and Lucas Brooking."
+        },
+        {
+            "title": "HKU - Digital Video Design",
+            "description": "One year of the HKU program aimed at developing video for spatial installations."
         }
     ]
  }

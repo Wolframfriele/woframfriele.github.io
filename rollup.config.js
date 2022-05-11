@@ -10,6 +10,7 @@ import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
 import markdown from '@jackfranklin/rollup-plugin-markdown';
 import glob from 'rollup-plugin-glob';
+import json from '@rollup/plugin-json';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -49,6 +50,7 @@ export default {
 			commonjs(),
 			markdown(),
     		glob(),
+			json(),
 
 			legacy && babel({
 				extensions: ['.js', '.mjs', '.html', '.svelte'],
@@ -105,7 +107,8 @@ export default {
 			}),
 			commonjs(),
 			markdown(),
-      		glob()
+      		glob(),
+			json()
 		],
 		external: Object.keys(pkg.dependencies).concat(require('module').builtinModules),
 		preserveEntrySignatures: 'strict',

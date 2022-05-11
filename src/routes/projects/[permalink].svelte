@@ -14,50 +14,39 @@
 	import Cover from "../../components/Cover.svelte";
 	import Intro from "../../components/Intro.svelte";
 	export let project;
-
-	function convertDate(date) {
-		const months = [
-			"January",
-			"February",
-			"March",
-			"April",
-			"May",
-			"June",
-			"July",
-			"August",
-			"September",
-			"October",
-			"November",
-			"December",
-		];
-
-		let month = months[date.getMonth()];
-		let year = date.getFullYear();
-		return `${month} ${year}_`;
-	}
 </script>
 
 <svelte:head>
 	<title>{project.title} | Wolfram Friele</title>
 </svelte:head>
 <header>
-	<Cover imageName={project.wideImage} />
+	<Cover imageName={project.coverImage} />
 	<Intro title={project.title} subTitle={project.summary} />
-	<Eyebrow copy={convertDate(project.date)} left="0" />
+	<Eyebrow copy="Project Context" left="0" />
 	<Block
-		title="Project Context"
-		wideImage={project.wideImage}
-		paragraph={project.html}
+		title={project.subTitle}
+		wideImage={project.projectContextImage}
+		paragraph={project.projectContext}
+		weblink={project.weblink}
+		date={project.date}
 		left="0"
+		video={project.video}
 	/>
 </header>
-<section class="content-block">
-	{@html project.html}
-</section>
+{#if project.inDepth.length > 0}
+	<section>
+		<Eyebrow copy="In Depth" left="1" />
+		{#each project.inDepth as section, idx}
+			<Block
+				title={section.title}
+				wideImage={section.wideImage}
+				squareImage={section.squareImage}
+				paragraph={section.paragraph}
+				left={(idx + 1) % 2}
+			/>
+		{/each}
+	</section>
+{/if}
 
 <style>
-	.content-block {
-		margin: 2em auto;
-		width: 1085px;
-	}
 </style>

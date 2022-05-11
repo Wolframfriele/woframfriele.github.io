@@ -4,7 +4,7 @@
 	import Eyebrow from "../components/Eyebrow.svelte";
 	import Block from "../components/Block.svelte";
 	import Hello from "../components/Hello.svelte";
-	import {projects} from '../projects';
+	import { projects } from "../projects";
 </script>
 
 <svelte:head>
@@ -23,7 +23,7 @@
 	{#each projects as project, idx}
 		<Block
 			title={project.title}
-			wideImage={project.wideImage}
+			wideImage={project.coverImage}
 			squareImage={project.squareImage}
 			paragraph={project.summary}
 			link={project.permalink}

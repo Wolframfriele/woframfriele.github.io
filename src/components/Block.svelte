@@ -5,6 +5,31 @@
   export let squareImage = false
   export let link = false
   export let left = 0
+  export let date = false
+  export let weblink = false
+  export let video = false
+
+  function convertDate(date) {
+		let d = new Date(date)
+		const months = [
+			"January",
+			"February",
+			"March",
+			"April",
+			"May",
+			"June",
+			"July",
+			"August",
+			"September",
+			"October",
+			"November",
+			"December",
+		];
+
+		let month = months[d.getMonth()];
+		let year = d.getFullYear();
+		return `${month} ${year}_`;
+	}
 </script>
 
 <style>
@@ -65,6 +90,7 @@
       grid-column: 1 / 5;
       width: 100%;
       min-height: 400px;
+      max-height: 500px;
       object-fit: cover;
       object-position: 80%;
     }
@@ -74,6 +100,7 @@
       grid-column: 5 / 9;
       width: 100%;
       min-height: 400px;
+      max-height: 600px;
       object-fit: cover;
       object-position: 0;
     }
@@ -82,6 +109,24 @@
       display: inline-block;
       grid-row: 3 / 4;
       grid-column: 4 / 6;
+    }
+
+    .iframe-container {
+      overflow: hidden;
+      /* 16:9 aspect ratio */
+      padding-top: 56.25%;
+      position: relative;
+      grid-row: 3 / 4;
+      grid-column: 3 / 8;
+    }
+
+    .iframe-container iframe {
+      border: 0;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
     }
   }
 </style>
@@ -122,6 +167,16 @@
   {/if}
   <div class:paragraph-left={left == 1} class:paragraph-right={left==0} class:align-right={link != false && left == 0}>
     <slot></slot>
+    {#if date}
+      <em>
+        <p><strong>{convertDate(date)}</strong></p>
+      </em>
+    {/if}
+    {#if weblink}
+      <em>
+        <a rel="prefetch" href="{weblink}">{weblink}</a>
+      </em>
+    {/if}
     {#if paragraph}
       <p>
         {paragraph}
@@ -135,4 +190,16 @@
       </em>
     {/if}
   </div>
+  {#if video}
+    <div class="iframe-container">
+      <iframe
+        title="Video Player"
+        src={video}
+        width="1085"
+        height="610"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
+  {/if}
 </div>
