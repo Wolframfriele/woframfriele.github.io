@@ -11,7 +11,7 @@
     "inDepth": [{
         "title": "Responsibilities",
         "paragraph": "For this project I took on the role of AI engineer. This was the first project with some form of machine learning, and it took me a while to understand the basic steps needed for facial recognition. After I got a poorly working prototype, I spent time comparing various algorithms for the detection and feature extraction phases. We settled on Histograms of Oriented Gradients (HOG) for detecting faces, because it is fast. Another benefit of HOG was that it didn’t detect faces viewed from the side. We only wanted front-face detection to ensure that face embeddings were always high quality. We compared different face embedding models (the way to extract usable features from the face), and found that Google's facenet had the best balance between speed and accuracy. Another very important step was matching the face embeddings to an entry in a database. We needed to not only find the closest embedding, but also determine if a new sample was part of the training set. This was important because if people had not been to the Sogeti office before, they still had to fill in their personal information. The name for this problem is an “Open Set” problem, and we needed to research techniques that could solve it.",
-        "wideImage": "projects/smart-mirror/face-scan"
+        "wideImage": "projects/smart-mirror/face-scan-wide"
         },
         {
         "title": "Open Set Solutions",

@@ -21,12 +21,11 @@
 
 <img
   srcset="
-  img/{imageName}-mobile.webp  440w,
   img/{imageName}-small.webp   800w,
   img/{imageName}-medium.webp 1200w,
   img/{imageName}-large.webp  1920w
   "
-  src="img/{imageName}-mobile.webp" 
+  src="img/{imageName}-small.webp"
   width="1920"
   height="250"
   alt=""

@@ -19,7 +19,7 @@
 	<Eyebrow copy="Error Message" left="0" />
 	<Block
 		title={status}
-		wideImage="radio-telescopes"
+		wideImage="404"
 		paragraph={error.message}
 		left=0
 	/>

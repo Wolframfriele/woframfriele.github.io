@@ -18,7 +18,7 @@
         {
         "title": "Design Decisions",
         "paragraph": "The main goal for this project was to lower the barrier for making an appointment. During the research phase we had seen that similar systems often have the user answer a bunch of questions before showing available time slots. We wanted to avoid that and show times immediately. This would allow users to see if their time slot was available directly, and it lets them see how their choices influence availability. It also means that a user does not have to fill out a complete survey, only to discover there were no spots available at a time that works for them.",
-        "wideImage": "projects/shmove-reservations/appointment-modal"
+        "wideImage": "projects/shmove-reservations/appointment-modal-wide"
         }
     ]
 }

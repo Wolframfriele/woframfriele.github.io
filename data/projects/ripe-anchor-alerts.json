@@ -7,7 +7,7 @@
     "weblink": "https://github.com/Wolframfriele/ripe-alerts",
     "coverImage": "projects/ripe-alerts/ripe-alerts-architecture",
     "squareImage": "projects/ripe-alerts/anomaly-detection",
-    "projectContextImage": "projects/ripe-alerts/anomaly-detection",
+    "projectContextImage": "projects/ripe-alerts/anomaly-detection-wide",
     "projectContext": "RIPE NCC is an organization that is responsible for the registration of IP ranges. Next to the core task they work on projects to improve internet infrastructure. One of these projects is RIPE Atlas, a platform aimed at measuring the internet. This platform uses probes (small sensors, for example raspberry pi in someone's home) and anchors (larger sensors, like a server at key network location) to execute these measurements. The question we got from RIPE NCC was: How can we provide more value to anchor hosts? The anchors are sponsored by companies with their own autonomous system number (an identifier on the internet). After a bit of research into this question we decided we wanted to build a monitoring tool for neighboring networks of anchor hosts that uses the RIPE Atlas anchoring measurements. The tool will be released as a fully open source product.",
     "inDepth": [{
         "title": "Responsibilities",
