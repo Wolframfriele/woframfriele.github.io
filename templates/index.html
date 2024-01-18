@@ -1,10 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-  Curious. About a lot of things.
-</h1>
-<p>
-  Data engineer with a passion for bla bla. I care about some things and I get excited about other things.
-</p>
+<h1>{{ section.title }}</h1>
+<p>{{ section.content | safe }}</p>
 {% endblock content %}
