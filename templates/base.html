@@ -6,36 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="cache-control" content="Private" />
     <meta http-equiv="Expires" content="31536000" />
-    <title>Wolfram Friele</title>
+        <title>{% block title %}{% endblock title %} Wolfram Friele</title>
     <link rel="stylesheet" href="{{ get_url(path='css/global.css') }}" />
     <link rel="'shortcut' icon” href='{{ get_url(path='favicon.ico') }}'" />
 </head>
 <body>
     <div class="container">
-        <header>
-            <div id="logo">
-                <a href="{{ config.base_url }}">
-                <img
-                  src="{{ get_url(path='img/wolfram-friele-logo.svg') }}"
-                  width="58"
-                  height="42"
-                  alt=""
-                  id="logo-img"
-                /><a>Wolfram Friele</a>
-                </a>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="{{ config.base_url }}" class="current-page">Home</a></li>
-                    <li><a href="{{ get_url(path='about') }}">About</a></li>
-                    <li><a href="{{ get_url(path='@/blog/_index.md') }}">Blog</a></li>
-                </ul>
-            </nav>
-        </header>
+        {% include "components/header.html"%}
         <main class="content">
-            {% block content %} {% endblock %}
+        {% block content %} {% endblock %}
         </main>
-        <footer>© 2024 Wolfram Friele</footer>
+        {% include "components/footer.html"%}
     </div>
 </body>
 </html>
