@@ -11,8 +11,8 @@
     </div>
     <nav>
         <ul>
-            <li><a href="{{ config.base_url }}" class="current-page">Home</a></li>
-            <li><a href="{{ get_url(path='@/blog/_index.md') }}">Blog</a></li>
+            <li><a href="{{ config.base_url }}" {% if current_url %}{% if current_path == "/" %} class="current-page" {% endif %} {% endif %}>Home</a></li>
+            <li><a href="{{ get_url(path='@/blog/_index.md') }}" {% if current_url %}{% if current_path is starting_with("/blog/") %} class="current-page" {% endif %} {% endif %}>Blog</a></li>
         </ul>
     </nav>
 </header>
