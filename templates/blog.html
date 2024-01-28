@@ -4,12 +4,14 @@
 <h1 class="title">
     {{ section.title }}
 </h1>
+<span><i>{{ section.content | safe }}</i></span>
 {% for page in section.pages %}
 <section>
 <hr class="solid">
 <h2><a href="{{ page.permalink | safe }}" class="post-title-link">{{ page.title }}</a></h2>
-<p class="subheading">{{ page.date }}</p>
+<p class="timestamp">{{ page.date | date(format="%d %B %Y") }}</p>
 <p>{{ page.description }}</p>
+<a href="{{ page.permalink | safe }}">Read More</a>
 </section>
 {% endfor %}
 {% endblock content %}

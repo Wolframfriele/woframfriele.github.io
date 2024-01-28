@@ -1,7 +1,7 @@
 :root {
   --main-bg-color: #1e1e1e;
   --title-color: white;
-  --text-color: #d3d3d3;
+  --text-color: #d6d6d6;
   --link-color: #a1a1a1;
   --font-family: "Helvetica", sans-serif;
 }
@@ -24,10 +24,12 @@ body {
 
 a {
   color: var(--link-color);
+  font-size: 1.25rem;
 }
 
 a:hover {
   color: var(--title-color);
+  font-size: 1.25rem;
 }
 
 p {
@@ -49,10 +51,22 @@ h2 {
   color: var(--title-color);
 }
 
+h3 {
+  font-family: sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--title-color);
+}
+
 img {
   width: 100%;
   height: auto;
   display: inline-block;
+}
+
+pre {
+    font-size: 1.1rem;
+    padding: 1rem;
 }
 
 /* Header */
@@ -79,23 +93,26 @@ header {
   text-decoration: none;
 }
 
+#tagline {
+    text-decoration: italic;
+}
+
 nav ul {
   display: flex;
   align-self: center;
-  margin: 1rem 0;
+  margin: 1rem 0 0 0;
   padding: 0;
 }
 
 nav li {
   list-style: none;
-    margin-right: 1em;
+  margin-right: 1em;
 }
 
 nav a {
   text-decoration: none;
   font-variant-caps: all-small-caps;
   color: var(--link-color);
-  font-size: 1.4rem;
 }
 
 nav a:hover {
@@ -115,6 +132,12 @@ nav a:hover {
   color: var(--title-color); 
 }
 
+.timestamp {
+  font-style: italic;    
+  color: var(--link-color);
+  font-size: 1rem;
+}
+
 main {
     margin: 1em;
     padding: 0;
@@ -123,6 +146,12 @@ main {
 .post-title-link{
   color: var(--title-color);
   text-decoration: none;
+  font-size: 2rem;
+}
+
+.post-title-link:hover {
+  text-decoration: underline;
+  font-size: 2rem;
 }
 
 footer {
@@ -138,12 +167,8 @@ footer {
 
   .container {
     /*padding: 10px 10px;*/
-    max-width: 50rem;
+    max-width: 51rem;
     margin: 0 auto;
-  }
-
-  nav {
-      width: 5.5rem;
   }
 
   nav ul {
@@ -151,9 +176,3 @@ footer {
     margin: 0.1rem 0;
 
   }
-  
-  nav a {
-    font-size: 1.1rem;
-  }
-
-  
