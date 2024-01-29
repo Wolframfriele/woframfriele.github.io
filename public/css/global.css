@@ -136,20 +136,13 @@ header {
     text-decoration: italic;
 }
 
-nav ul {
-  display: flex;
-  align-self: center;
-  margin: 1rem 0 0 0;
-  padding: 0;
-}
-
-nav li {
-  list-style: none;
-  margin-right: 1em;
+nav {
+  margin-top: 1em;
 }
 
 nav a {
   text-decoration: none;
+  margin-right: 1em;
   font-variant-caps: all-small-caps;
   color: var(--link-color);
 }
@@ -220,8 +213,7 @@ footer a {
     justify-content: space-between;
   }
 
-  nav ul {
-    justify-content: space-between;
-    margin: 0.1rem 0;
-
-  }
+  nav a {
+    margin-left: 1em;
+    margin-right: 0;
+  } 
