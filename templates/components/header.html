@@ -10,7 +10,8 @@
         />Wolfram Friele</a>
     </div>
     <nav>
-        <a href="{{ config.base_url }}" {% if current_url %}{% if current_path == "/" %} class="current-page" {% endif %} {% endif %}>Home</a>
-        <a href="{{ get_url(path='@/blog/_index.md') }}" {% if current_url %}{% if current_path is starting_with("/blog/") %} class="current-page" {% endif %} {% endif %}>Blog</a>
+        <a href="{{ config.base_url }}" {% if current_url %}{% if current_path is starting_with("/blog/") or current_path == "/"  %} class="current-page" {% endif %} {% endif %}>Blog</a>
+        <a href="{{ get_url(path='@/about/_index.md') }}" {% if current_url %}{% if current_path is starting_with("/about/") %} class="current-page" {% endif %} {% endif %}>About</a>
     </nav>
 </header>
+

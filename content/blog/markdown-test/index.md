@@ -2,6 +2,7 @@
 title = "Markdown test page"
 description = "A page with a bunch of different markdown elements so that I can get a better understanding of how everything looks."
 date = 2023-12-18
+updated = 2024-01-05
 +++
 
 I think I want to start each blog post with a short bit of text before I add any titles, but I'm not 100% convinced about that. This is a _good way_ to test that out and see what I like better.
@@ -45,6 +46,8 @@ pub fn binary_search(haystack:Vec<i32>, needle: i32) -> Option<usize> {
 ```
 This code block shows an implementation of bubblesort, fun!
 
+---
+
 ## Other elements
 
 A typical thing I will need for blogs is an unordered list:
@@ -81,6 +84,8 @@ And lastly I should maybe be able to add tables [^2].
 | ----------- | ----------- |
 | Header      | Title       |
 | Paragraph   | Text        |
+
+---
 
 [^1] This is a how a footnote would look btw.
 
