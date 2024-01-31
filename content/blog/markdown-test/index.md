@@ -80,10 +80,18 @@ _Figure 1. A cool render I made that seems to be about data and infrastructure._
 
 And lastly I should maybe be able to add tables [^2].
 
-| Syntax      | Description |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
+
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
+### A task list
+
+- [x] Code cells
+- [x] tasks
+- [ ] Tables
+- [ ] Table of content
 
 ---
 

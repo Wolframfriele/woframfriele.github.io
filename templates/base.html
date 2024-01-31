@@ -1,18 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="cache-control" content="Private" />
-    <meta http-equiv="Expires" content="31536000" />
-        <title>{% block title %}{% endblock title %} Wolfram Friele</title>
-    <link rel="stylesheet" href="{{ get_url(path='styles.css') }}" />
-    <link rel="'shortcut' icon” href='{{ get_url(path='favicon.ico') }}'" />
-</head>
+{% include "components/head.html"%}
 <body>
     {% include "components/header.html"%}
-    <main class="content">
+    <main>
         {% block content %} {% endblock %}
     </main>
     {% include "components/footer.html"%}

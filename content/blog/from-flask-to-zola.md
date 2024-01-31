@@ -12,6 +12,15 @@ date = 2024-01-18
     - Further optimize performance / ethics of pageweight / solar website
     - A place to share things that I am excited about
 
+- Why I think performance matters
+    - [The cost of Javascript frameworks](https://timkadlec.com/remembers/2020-04-21-the-cost-of-javascript-frameworks/)
+    - [ethics of performance](https://timkadlec.com/remembers/2019-01-09-the-ethics-of-performance/)
+    - [Solar website](https://solar.lowtechmagazine.com/2023/06/rebuilding-a-solar-powered-website/)
+
+- What are my goals with this website
+
+
+
 There is only one true kind of first blog post for people writing in the development space, and that is a post about how the website that the post is on was build. With a bit of luck this post will be buried under tons of interesting other articles. But it also often happens that there will be only a few, as it turns out that the person likes building software more than they like writing about it. Only time will tell where this blog ends up!
 
 ## Why did I want to change the website again? 

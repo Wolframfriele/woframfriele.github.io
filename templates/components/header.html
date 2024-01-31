@@ -2,16 +2,29 @@
     <div id="logo">
         <a href="{{ config.base_url }}">
         <img
-          src="{{ get_url(path='img/wolfram-friele-logo.svg') }}"
-          width="58"
-          height="42"
+          src="{{ get_url(path='icon.svg') }}"
+          width="40"
+          height="27"
           alt=""
+          fetchpriority="high"
           id="logo-img"
         />Wolfram Friele</a>
     </div>
     <nav>
-        <a href="{{ config.base_url }}" {% if current_url %}{% if current_path is starting_with("/blog/") or current_path == "/"  %} class="current-page" {% endif %} {% endif %}>Blog</a>
-        <a href="{{ get_url(path='@/about/_index.md') }}" {% if current_url %}{% if current_path is starting_with("/about/") %} class="current-page" {% endif %} {% endif %}>About</a>
+        <a 
+            href="{{ config.base_url }}" 
+            {% if current_url %}
+            {% if current_path is starting_with("/blog/") or current_path == "/"  %}
+            class="current-page" 
+            {% endif %} {% endif %}
+        >Blog</a>
+        <a 
+            href="{{ get_url(path='@/about/_index.md') }}" 
+            {% if current_url %}
+            {% if current_path is starting_with("/about/") %} 
+            class="current-page" 
+            {% endif %} {% endif %}
+        >About</a>
     </nav>
 </header>
 

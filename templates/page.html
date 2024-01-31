@@ -4,7 +4,6 @@
 <h1 class="title">
     {{ page.title }}
 </h1>
-{% if page.date %}<p class="timestamp"> {% if page.updated %}First {% endif %}Published: {{ page.date | date(format="%d %B %Y") }}</p>{% endif %}
-{% if page.updated %}<p class="timestamp">Updated: {{ page.updated | date(format="%d %B %Y") }} </p>{% endif %}
+<p class="post-meta">{{ page.date | date(format="%d %B %Y") }} · {{ page.reading_time }} minute read</p>
 {{ page.content | safe }}
 {% endblock content %}

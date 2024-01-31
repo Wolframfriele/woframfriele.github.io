@@ -1,6 +1,7 @@
 +++
 title = "Privacy Policy"
 template = "page.html"
+date = 2024-01-31
 +++
 This website does not use cookies or analytics. I'm not collecting any data.
 
