@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>{{ section.title }}</h1>
-<p>{{ section.content | safe }}</p>
+{{ section.content | safe }}
 
 {% set blog_section = get_section(path="blog/_index.md") %}
 {% for page in blog_section.pages %}
@@ -11,7 +11,6 @@
 <h2><a href="{{ page.permalink | safe }}" class="post-title-link">{{ page.title }}</a></h2>
 <p class="post-meta">{{ page.date | date(format="%d %B %Y") }} · {{ page.reading_time }} minute read</p>
 <p>{{ page.description }}</p>
-<a href="{{ page.permalink | safe }}">Read More</a>
 </section>
 {% endfor %}
 
