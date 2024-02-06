@@ -1,6 +1,7 @@
 +++
 title = "Hello, I'm Wolf."
 template = "about.html"
+description = "Autobiography about Wolfram Friele a former 3D animator, currently software developer with a focus on systems that use data to improve infrastucture."
 +++
 _I'm working on systems that combine, transform and analyze data to improve infrastructure. Currently interning at Siemens Mobility, where I am analyzing brake recuperation of trams._
 

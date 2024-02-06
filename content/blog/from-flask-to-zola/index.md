@@ -1,6 +1,6 @@
 +++
 title = "From Flask to Zola: the evolution of this website"
-description = "Why did I change the website again, and why did I go from a dynamic python based setup to a static much simpler setup."
+description = "My goals for this website and what I learned from building my portfolio website with a bunch of different technology's."
 date = 2024-02-04
 +++
 

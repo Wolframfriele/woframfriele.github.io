@@ -1,11 +1,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="cache-control" content="Private" />
-    <meta http-equiv="Expires" content="31536000" />
-        <title>Wolfram Friele</title>
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% elif section.description %}{{ section.description }}{% else %} Blog by Wolfram Friele about software development {% endif %}">
+    <title>Wolfram Friele</title>
     <link rel="stylesheet" href="{{ get_url(path='styles.css') }}" />
-
     <link rel="icon" href="{{ get_url(path='favicon.ico') }}" sizes="32x32">
     <link rel="icon" href="{{ get_url(path='icon.svg') }}" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
