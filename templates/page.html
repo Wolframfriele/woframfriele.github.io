@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-    {{ page.title }}
-</h1>
-<p class="post-meta">{{ page.date | date(format="%d %B %Y") }} · {{ page.reading_time }} minute read</p>
-{{ page.content | safe }}
+<article>
+    <h1 class="title">
+        {{ page.title }}
+    </h1>
+    <p class="post-meta">{{ page.date | date(format="%d %B %Y") }} · {{ page.reading_time }} minute read</p>
+    {{ page.content | safe }}
+</article>
 {% endblock content %}

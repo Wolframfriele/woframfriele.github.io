@@ -42,7 +42,7 @@ taxonomies = []
 build_search_index = false
 
 # When set to "true", the generated HTML files are minified.
-minify_html = false
+minify_html = true
 
 [markdown]
 # Whether to do syntax highlighting

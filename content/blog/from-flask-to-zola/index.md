@@ -1,7 +1,7 @@
 +++
 title = "From Flask to Zola: the evolution of this website"
-description = "Why did I change the website again, and why did I go from a dynamic python based setup to a static much simpler setup."
-date = 2024-01-18
+description = "My goals for this website and what I learned from building my portfolio website with a bunch of different technology's."
+date = 2024-02-04
 +++
 
 I finally got around to overhauling my website. In this blog I want to share the goals for the site, why I ended up changing most of the design, and what I learned from all the previous iterations.

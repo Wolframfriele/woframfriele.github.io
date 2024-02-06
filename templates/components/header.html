@@ -1,29 +1,26 @@
 <header>
     <div id="logo">
         <a href="{{ config.base_url }}">
-        <img
-          src="{{ get_url(path='icon.svg') }}"
-          width="40"
-          height="27"
-          alt=""
-          fetchpriority="high"
-          id="logo-img"
-        />Wolfram Friele</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 805 550"><defs><linearGradient id="a" x1="140.44" x2="353.16" y1="270.55" y2="161.57" gradientUnits="userSpaceOnUse"><stop offset=".02" stop-color="#ccc"/><stop offset=".26" stop-color="#a9a9a9"/><stop offset=".79" stop-color="#525252"/><stop offset="1" stop-color="#2d2d2d"/></linearGradient></defs><path d="M0 0h527L263.5 550 0 0z" style="fill:url(#a)"/><path d="M278 0h527L541.5 550 278 0z" style="fill:#d3d3d3"/>
+            </svg>Wolfram Friele
+        </a>
     </div>
     <nav>
         <a 
             href="{{ config.base_url }}" 
             {% if current_url %}
-            {% if current_path is starting_with("/blog/") or current_path == "/"  %}
-            class="current-page" 
-            {% endif %} {% endif %}
+                {% if current_path is starting_with("/blog/") or current_path == "/"  %}
+                    class="current-page" 
+                {% endif %}
+            {% endif %}
         >Blog</a>
         <a 
             href="{{ get_url(path='@/about/_index.md') }}" 
             {% if current_url %}
-            {% if current_path is starting_with("/about/") %} 
-            class="current-page" 
-            {% endif %} {% endif %}
+                {% if current_path is starting_with("/about/") %} 
+                    class="current-page" 
+                {% endif %}
+            {% endif %}
         >About</a>
     </nav>
 </header>
