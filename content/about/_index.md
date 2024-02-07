@@ -7,7 +7,7 @@ _I'm working on systems that combine, transform and analyze data to improve infr
 
 <hr>
 
-![Portrait of Wolfram Friele](portrait-wolf.webp)
+{{ img(path="about/portrait-wolf.webp", alt="Portrait of Wolfram Friele") }}
 
 I'm a former [3D-animator](https://vimeo.com/261704101) who used to work in the advertising industry. While I still think animation is incredible, after 8 years working in the industry I was starting to feel tired making advertisements. I had always enjoyed the technical aspects of 3D-animation, and had become the go-to person on my team when people needed help debugging scenes. When a former colleague responded to a brief introduction I had written about myself for a pitch deck with "Dude, you sound like an engineer, let me rewrite that for you,” something in the statement stuck
 

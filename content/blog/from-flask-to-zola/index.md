@@ -31,7 +31,7 @@ I have had my domain since 2012 and up untill 2020 I just ran various wordpress 
 
 When I started at [the university of applied sciences](https://www.hu.nl/voltijd-opleidingen/open-ict), the first project was to build was a personal website. My goal at the time was getting into machine learning, so the logical choice for the website was to use it as an opportunity to learn Python. I looked into webframeworks and settled on [Flask](https://flask.palletsprojects.com/en/3.0.x/), because it seemed lightweight and I found a great tutorial by [Miguel Grinberg](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world). I learned about buiding and Deploying applications, databases and database migrations, templating languages, and even improved my understanding of HTML because I designed the website with a relatively complicated grid. It was a great time!
 
-![screenshot of a previous iteration of the portfolio website from the author showing an image grid with different image sizes that are staggered and bold overlapping typography](screenshot-of-previous-website.webp)
+{{ img(path="screenshot-of-previous-website.webp", alt="screenshot of a previous iteration of the portfolio website from the author showing an image grid with different image sizes that are staggered and bold overlapping typography", lazy=1) }}
 
 The problem with [this setup](https://github.com/Wolframfriele/Portfolio_website_flask) was that it was overly complex. I was simply serving pages that would change maybe once every half year, and you don't need a database to do so.
 
