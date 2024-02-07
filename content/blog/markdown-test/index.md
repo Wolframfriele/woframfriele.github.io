@@ -76,7 +76,7 @@ Sometimes I should add quotes
 
 Images are another very important thing to have in blogs at times.
 
-![Highway intersection](cool-image.webp)
+{{ img(path="cool-image.webp", alt="Highway intersection rendered in 3d", lazy=1) }}
 _Figure 1. A cool render I made that seems to be about data and infrastructure._
 
 And lastly I should maybe be able to add tables [^2].

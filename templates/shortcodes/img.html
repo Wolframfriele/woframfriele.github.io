@@ -1,0 +1,18 @@
+{% if page %}
+{% set original_path =  page.colocated_path ~ path %}
+{% else %}
+{% set original_path =  path %}
+{% endif %}
+{% set image = resize_image(path=original_path, width=380, op="fit_width", format="webp", quality=75) %}
+{% set original = get_url(path=original_path) %}
+{% set meta = get_image_metadata(path=original_path) %}
+<img
+    {% if lazy %}
+        loading="lazy"
+    {% endif %}
+    alt="{{ alt }}"
+    width="{{ meta.width }}" height="{{ meta.height }}"  
+    sizes="(max-width: 52rem) 380px, {{ meta.width }}px"
+    srcset="{{ image.url }} 380w, {{ original }} {{ meta.width }}w"
+    src="{{ original }}"
+/>
