@@ -1,7 +1,8 @@
 +++
 title = "From Flask to Zola: the evolution of this website"
-description = "My goals for this website and what I learned from building my portfolio website with a bunch of different technology's."
+description = "The goals I have for this website and what I learned from building my portfolio website with a bunch of different technology's."
 date = 2024-02-04
+update = 2024-03-24
 +++
 
 I finally got around to overhauling my website. In this blog I want to share the goals for the site, why I ended up changing most of the design, and what I learned from all the previous iterations.
@@ -44,6 +45,7 @@ I figured I could learn [Svelte](https://svelte.dev/), while also making [my web
 The right tool for my requirements is a static website generator; I have landed on [Zola](https://www.getzola.org/). It has support for code blocks, a templating language that is very similar to Jinja, and is written in Rust (so it must be blazingly fast).
 
 So far it has been an absolute joy to work with. Want to display reading time? There's a [variable build in](https://www.getzola.org/documentation/templates/pages-sections/) for that. Code blocks? Just [enable it in the configuration](https://www.getzola.org/documentation/content/syntax-highlighting/). Footnotes and tables work out of the box. In a way the back-end to my website has been a devolution, becoming simpler and simpler. But simple is good. Especially when the problem does not require complexity. As I keep building out this site, I'll update with my experience of using Zola.
+
 
 ---
 
