@@ -4,9 +4,20 @@
   --title-color: white;
   --text-color: #d6d6d6;
   --link-color: #a1a1a1;
-  --dimmed-color: #a1a1a1;
   --font-family: "Helvetica", "Arial", "sans-serif";
   --header-font-family: "DejaVu Sans", "SF Pro Display", "Segoe UI Light", "sans-serif";
+  --logo-brightness: 100%;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --title-color: #0f0f0f;
+    --text-color: #303030;
+    --link-color: #202020;
+    --main-bg-color: #f4f4f4;
+    --darker-black: #a1a1a1;
+    --logo-brightness: 90%;
+  }
 }
 
 body {
@@ -68,7 +79,7 @@ img {
 pre {
   font-size: 1.05rem;
   padding: 1em;
-  overflow: scroll;
+  overflow: auto;
 }
 
 hr {
@@ -92,10 +103,11 @@ header {
   min-height: 27px;
   width: 2.5rem;
   height: auto;
+  filter: brightness(var(--logo-brightness));
 }
 
 #logo:hover {
-    filter: brightness(110%);
+  filter: brightness(110%);
 }
 
 #logo a{
