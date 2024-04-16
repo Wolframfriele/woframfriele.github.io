@@ -1,11 +1,26 @@
 +++
 title = "Typing Faster: Single word autocorrect"
-description = "Can typing speed be improved without completely re-learning a new system? This post lay's out the ideas for a project I have been tinkering around with in my free time."
-date = 2024-04-04
+description = "Historically spelling control started out on a word per word basis, this posts builds a simple system that can automatically correct words without looking at the sentence context."
+date = 2024-04-18
 draft = true
 +++
 
+## Outline
+
+- Quick history and how spellchecking started
+- explaining edit distance
+- code for edit distance
+- explaining n-grams for word similarity
+- code for n-gram similarity
+- Comparing the methods
+- Implementing the methods into the terminal environment
+
+
 ## Spellchecking
+
+There exists a, for computer sciences standards, long [history of spell checking](https://doi.org/10.1093/wsr/wsq004) ([or if you prefer video](https://www.youtube.com/watch?v=d-Eq6x1yssU)). Most methods followed some variations off: check if word exists in a dictionary, if word does not exist, provide suggestions off similar words. This sounds very simple, but back in the day memory was costly and keeping an entire dictionary in memory was expensive (or even impossible). Then there is the problem of providing a similar word. It sounds simple, but how do you determine if a word is similar?
+
+Today's blog post will go over two different methods for calculating word similarity.
 
 [Historically](https://www.youtube.com/watch?v=d-Eq6x1yssU) one of the earlier methods that gave corrections for misspelled words was based around a metric called _edit distance_. This is simply the amount of edit operations that it takes to go from one word to another. For example the edit distance between _RUUST_ and _RUST_ is 1, simply delete one _U_. There are variations of edit distance, with different operations that are allowed. But for this post I'll focus on the Levenshtein distance (insert, delete, substitute).
 
@@ -30,5 +45,6 @@ When the letters are the same you only look at one position (green), and take th
 ![](edit-distance-table-04.svg)
 
 After filling in the entire table, you can simply look at the bottom right value, in this case 1. This is the edit distance between the input string and the target string.
+
 
 

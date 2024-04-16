@@ -2,7 +2,7 @@
 title = "From Flask to Zola: the evolution of this website"
 description = "The goals I have for this website and what I learned from building my portfolio website with a bunch of different technology's."
 date = 2024-02-04
-update = 2024-03-24
+updated = 2024-04-13
 +++
 
 I finally got around to overhauling my website. In this blog I want to share the goals for the site, why I ended up changing most of the design, and what I learned from all the previous iterations.
@@ -16,7 +16,7 @@ The stuff I'll write about will probably range from data wrangling to tinkering 
 
 ### Reinforce what I'm learning by writing about it
 
-For universty I have to write about what I'm learning and I find that helps my understanding. As I'm nearing the end of my studies, this blog will keep that habit alive. And who knows, maybe at some point other people will find value in what I'm learning?
+For university I have to write about what I'm learning and I find that helps my understanding. As I'm nearing the end of my studies, this blog will keep that habit alive. And who knows, maybe at some point other people will find value in what I'm learning?
 
 ## Why change the website again?
 
@@ -26,7 +26,7 @@ The second reason is that, while my previous website looked pretty cool (if I ma
 
 ## The previous iterations of my website
 
-I have had my domain since 2012 and up untill 2020 I just ran various wordpress themes with some custom css.
+I have had my domain since 2012 and up until 2020 I just ran various wordpress themes with some custom css.
 
 ### Flask
 
@@ -45,6 +45,41 @@ I figured I could learn [Svelte](https://svelte.dev/), while also making [my web
 The right tool for my requirements is a static website generator; I have landed on [Zola](https://www.getzola.org/). It has support for code blocks, a templating language that is very similar to Jinja, and is written in Rust (so it must be blazingly fast).
 
 So far it has been an absolute joy to work with. Want to display reading time? There's a [variable build in](https://www.getzola.org/documentation/templates/pages-sections/) for that. Code blocks? Just [enable it in the configuration](https://www.getzola.org/documentation/content/syntax-highlighting/). Footnotes and tables work out of the box. In a way the back-end to my website has been a devolution, becoming simpler and simpler. But simple is good. Especially when the problem does not require complexity. As I keep building out this site, I'll update with my experience of using Zola.
+
+## Findings on Zola
+
+One extremely helpful feature has been [shortcodes](https://www.getzola.org/documentation/content/shortcodes/). I wanted a way to automatically make small versions of images I use on the webpage. Because the mobile lay-out does not require the full image size, and making a smaller image by hand is a lot of work. I also wanted the option to set lazy loading for images beyond the fold, because this can speed up page load times. 
+
+```html
+{% if page %}
+    {% set original_path =  page.colocated_path ~ path %}
+{% else %}
+    {% set original_path =  path %}
+{% endif %}
+
+{% set image = resize_image(
+    path=original_path,
+    width=380,
+    op="fit_width",
+    format="webp",
+    quality=75
+) %}
+{% set original = get_url(path=original_path) %}
+{% set meta = get_image_metadata(path=original_path) %}
+
+<img
+    {% if lazy %}
+        loading="lazy"
+    {% endif %}
+    alt="{{ alt }}"
+    width="{{ meta.width }}" height="{{ meta.height }}"  
+    sizes="(max-width: 52rem) 380px, {{ meta.width }}px"
+    srcset="{{ image.url }} 380w, {{ original }} {{ meta.width }}w"
+    src="{{ original }}"
+/>
+
+```
+
 
 
 ---
