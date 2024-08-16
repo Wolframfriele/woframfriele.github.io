@@ -1,0 +1,167 @@
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content="Can typing speed be improved without completely re-learning a new system? This post lays out the start to a simple terminal based text editor that implements autocorrect." name=description><title>Typing Faster: Project set-up | Wolfram Friele</title><link href=https://wolframfriele.com/styles.css rel=stylesheet><link href=https://wolframfriele.com/favicon.ico rel=icon sizes=32x32><link href=https://wolframfriele.com/icon.svg rel=icon type=image/svg+xml><link href=/apple-touch-icon.png rel=apple-touch-icon><link href=/manifest.webmanifest rel=manifest><body><header><div id=logo><a href=https://wolframfriele.com> <svg viewbox="0 0 805 550" xmlns=http://www.w3.org/2000/svg xmlns:xlink=http://www.w3.org/1999/xlink><defs><style>.a{fill:url(#a)}.b{fill:#d3d3d3}</style><lineargradient gradientunits=userSpaceOnUse id=a x1=140.44 x2=353.16 y1=270.55 y2=161.57><stop offset=0.02 stop-color=#ccc /><stop offset=0.26 stop-color=#a9a9a9 /><stop offset=0.79 stop-color=#525252 /><stop offset=1 stop-color=#2d2d2d /></lineargradient></defs><polygon points="0 0 527 0 263.5 550 0 0" class=a /><polygon points="278 0 805 0 541.5 550 278 0" class=b /></svg> Wolfram Friele </a></div><nav><a class=current-page href=https://wolframfriele.com>Blog</a><a href=https://wolframfriele.com/about/>About</a></nav></header><main><article><h1 class=title>Typing Faster: Project set-up</h1><p class=post-meta>13 April 2024 · 11 minute read<p>Typing fast is pretty useful as a developer, since almost anything you make is text based. Unfortunately I never learned how to properly touch type, so when I made a career switch to software development, touch typing was one of the first things I set out to learn. The location of backspace quickly became a nuisance and had me exploring alternatives. This quickly spiraled into learning about <a href=https://github.com/foostan/crkbd>split keyboards</a>, <a href=https://colemakmods.github.io/mod-dh/>alternative keyboard lay-outs</a> and fewer and <a href="https://www.youtube.com/watch?v=5RN_4PQ0j1A">fewer keys</a>. It seemed sensible that if I was going to learn how to touch type, I should learn on a split keyboard. I'm currently at a speed of somewhere between 60 to 90 words per minute. This is higher than the average but probably pretty slow compared to the average developer.<p>When you spend some time in the custom keyboard scene, you eventually end up learning about stenography; The input method where typists use chords and reach speeds of around 250 wpm. A benefit of that raw speed that <a href=http://plover.stenoknight.com/2010/06/raw-speed.html>is sometimes mentioned</a>, is the fact that it allows you to keep up with your thoughts and stay in the flow. But after playing around with <a href=https://www.openstenoproject.org/plover/>plover</a> (an open source stenography engine) for a little bit, I found the learning curve too steep. I didn't want to learn yet another system. But I did become curious about tooling that can help you type faster, without needing to start from scratch.<h2 id=goals>Goals</h2><p>While this project is mostly an excuse to play around with rust and explore spelling correction techniques, I'll also set some concrete goals to help guide decisions:<ul><li>The main goal is to prototype different text input methods in a terminal environment. The terminal has everything to handle user input and render text, and I have been curious about developing for it.<li>Performance is important, there should be no lag when entering text (I'm looking at you VS Code), with a 60 Hz screen this requires a maximum update time of 16 ms.<li>The tool would eventually need to work for normal text and for writing code, but I'll prioritize normal writing at first.<li>As far as typing speed goals go: more faster more better, but it should at least be a 10% speed increase.</ul><h2 id=potential-solutions>Potential solutions</h2><p>While researching potential ways to speed up text input, I found three different methods that I want to try out.<p>The first is auto correct. One of the major slowdowns while typing is correcting ducking errors. It's much faster if you don't have to go back and fix them. There are multiple ways to implement spelling correction. I want to start out experimenting with older and simpler techniques, like edit distance, but slowly work my way up to more modern methods like transformers.<p>Another potential solution has already been mentioned: chording. While official stenography has a steep learning curve, it might be possible to implement a less complete but easier chording system that still results in speed ups. I'm also curious if sentence context can be used to make chording simpler, such as using word prediction to require less complex chords.<p>The last option is predictive text. The jury is still out on <a href=https://dl.acm.org/doi/10.1145/2858036.2858305>the effectiveness of predictive text</a>, but that could be largely due to the way the UI works on a phone. In general the predicted words are placed above the keyboard and that is not where you are looking while typing. According to <a href="https://www.youtube.com/watch?v=hBDwXipHykQ">Johnny Harris</a> predictive text has been successful in speeding up typing in China. Since autocorrect and predictive text have a lot of technical overlap, this will mostly be about experimenting with UX.<h2 id=a-testing-environment>A testing environment</h2><p>I recently started following the <a href=https://viewsourcecode.org/snaptoken/kilo/>kilo</a> and <a href=https://www.flenker.blog/hecto/>hecto</a> tutorials about building a terminal text editor and got excited about an opportunity to use that knowledge. I highly recommend following those at least partially, because they go over the project setup in a much more step-by-step fashion. This really teaches you what every line does.<p>Hecto uses <a href=https://docs.rs/termion/latest/termion/>termion</a> to interact with the terminal, but termion is not cross platform. So instead I use <a href=https://docs.rs/crossterm/latest/crossterm/index.html>crossterm</a>. This has the added benefit that I have to implement the underlying concepts, because I can't just copy the tutorial.<p>The basic setup consists of two files, all code can be found on github. I've dubbed the project <a href=https://github.com/Wolframfriele/zamboni>Zamboni</a>. The file <a href=https://github.com/Wolframfriele/zamboni/blob/45d6c630e11f5859550da6583b86e5a3fdacd77b/src/main.rs><code>main.rs</code></a> is simple:<pre class=language-rust data-lang=rust style=background:#2b303b;color:#c0c5ce><code class=language-rust data-lang=rust><span>#![</span><span style=color:#bf616a>warn</span><span>(clippy::all, clippy::pedantic)]
+</span><span style=color:#b48ead>mod </span><span>editor;
+</span><span style=color:#b48ead>use </span><span>std::io;
+</span><span>
+</span><span style=color:#b48ead>use </span><span>editor::Editor;
+</span><span>
+</span><span style=color:#b48ead>fn </span><span style=color:#8fa1b3>main</span><span>() -> io::Result<()> {
+</span><span>    Editor::default().</span><span style=color:#96b5b4>run</span><span>()?;
+</span><span>    Ok(())
+</span><span>}
+</span></code></pre><p>All it does is import the editor module (that lives in the second file), and executes the run command on the default editor. Because this is a prototype and I'm not planning to do actual work with it, I'm fine with the programming just crashing whenever there is an error (the <a href=https://doc.rust-lang.org/reference/expressions/operator-expr.html#the-question-mark-operator>question mark operator</a> unwraps non-error values or crashes).<p>The second file <a href=https://github.com/Wolframfriele/zamboni/blob/c6121d315da65a0e39070652cc497734474fd457/src/editor.rs><code>editor.rs</code></a> contains the rest of the code:<pre class=language-rust data-lang=rust style=background:#2b303b;color:#c0c5ce><code class=language-rust data-lang=rust><span style=color:#b48ead>use </span><span>std::char;
+</span><span style=color:#b48ead>use </span><span>std::io::{</span><span style=color:#bf616a>self</span><span>, Stdout};
+</span><span style=color:#b48ead>use </span><span>std::time::{Duration, Instant};
+</span><span>
+</span><span style=color:#b48ead>use </span><span>crossterm::event::{poll, read, Event, KeyCode, KeyEvent, KeyModifiers};
+</span><span style=color:#b48ead>use </span><span>crossterm::style::Print;
+</span><span style=color:#b48ead>use </span><span>crossterm::terminal::{</span><span style=color:#bf616a>self</span><span>};
+</span><span style=color:#b48ead>use </span><span>crossterm::{cursor, execute};
+</span><span>
+</span><span>...
+</span></code></pre><p>The first few lines contain all the imports, lots of Crossterm goodness, that we'll get to later. Stdout is used to display the text, duration is used to set a poll rate and Instant is used for calculating how many words per minute a user types into the editor. This will come in handy later to roughly compare typing speeds between solutions.<h3 id=setting-up-the-editor>Setting up the editor</h3><p>Everything for the editor is contained in a struct, it holds a variable that will tell the editor to quit, it holds a reference to Stdout, a buffer to store text and a time variable to calculate words per minute.<p>The first method, <em>default</em>, constructs the struct with, you guessed it, default values. The struct also has a setup and a cleanup method; when you normally interact with a terminal it is set to <em>cooked mode</em>. In this mode a user enters characters, hits enter and only at that point will the program process the input. This is great for entering commands, or building something like a classic guessing game. But editing text requires a quicker feedback loop, which can be achieved with <em>raw mode</em>. The kilo booklet <a href=https://viewsourcecode.org/snaptoken/kilo/03.rawInputAndOutput.html>explains</a> what goes into setting up raw mode, but luckily for us Crossterm just has function called <a href=https://docs.rs/crossterm/latest/crossterm/terminal/index.html#raw-mode><em>enable_raw_mode</em></a>. After that we execute another convenient function: <em>EnterAlternateScreen</em>. This works similar to opening up neovim, where the terminal goes to a different screen. When you close neovim (if you know how) the terminal is back exactly how you left it.<pre class=language-rust data-lang=rust style=background:#2b303b;color:#c0c5ce><code class=language-rust data-lang=rust><span>...
+</span><span>
+</span><span style=color:#b48ead>pub struct </span><span>Editor {
+</span><span>    </span><span style=color:#bf616a>should_quit</span><span>: </span><span style=color:#b48ead>bool</span><span>,
+</span><span>    </span><span style=color:#bf616a>stdout</span><span>: Stdout,
+</span><span>    </span><span style=color:#bf616a>buffer</span><span>: Buffer,
+</span><span>    </span><span style=color:#bf616a>start_time</span><span>: Instant,
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead>impl </span><span>Editor {
+</span><span>    </span><span style=color:#b48ead>pub fn </span><span style=color:#8fa1b3>default</span><span>() -> </span><span style=color:#b48ead>Self </span><span>{
+</span><span>        </span><span style=color:#b48ead>Self </span><span>{
+</span><span>            should_quit: </span><span style=color:#d08770>false</span><span>,
+</span><span>            stdout: io::stdout(),
+</span><span>            buffer: Buffer::default(),
+</span><span>            start_time: Instant::now(),
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#b48ead>fn </span><span style=color:#8fa1b3>setup</span><span>(&</span><span style=color:#b48ead>mut </span><span style=color:#bf616a>self</span><span>) -> io::Result<()> {
+</span><span>        terminal::enable_raw_mode()?;
+</span><span>        execute!(
+</span><span>            </span><span style=color:#bf616a>self</span><span>.stdout,
+</span><span>            terminal::EnterAlternateScreen,
+</span><span>            cursor::MoveTo(</span><span style=color:#d08770>0</span><span>, </span><span style=color:#d08770>0</span><span>),
+</span><span>        )?;
+</span><span>        Ok(())
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#b48ead>fn </span><span style=color:#8fa1b3>cleanup</span><span>(&</span><span style=color:#b48ead>mut </span><span style=color:#bf616a>self</span><span>) -> io::Result<()> {
+</span><span>        execute!(</span><span style=color:#bf616a>self</span><span>.stdout, terminal::LeaveAlternateScreen)?;
+</span><span>        terminal::disable_raw_mode()?;
+</span><span>        Ok(())
+</span><span>    }
+</span><span>
+</span><span>...
+</span><span>
+</span><span>}
+</span><span>
+</span><span>...
+</span></code></pre><p>The <em>clean_up</em> method reverses all the steps and leaves a user with a usable terminal. You can experiment with leaving out some of these steps to see what they do. But keep in mind that if you don't enable raw mode you will need to exit the program by pressing "ctrl + c" (normally this is done with ctrl + q as set up in the next section). If you enable raw mode, but don't disable it, no characters will be echoed to the terminal even after exiting the program. This can be fixed by running the <code>reset</code> command in the terminal (the word reset won't be visible as you type it).<h3 id=interacting-with-the-editor>Interacting with the editor</h3><p>Now that we can set up the terminal in raw mode, we need to actually run the main loop for the program. This consists of three steps that are executed as long as the editor is running. First we read events, stuff like character input or resizing the terminal. By <a href=https://docs.rs/crossterm/latest/crossterm/event/index.html>polling</a> events we make this loop non-blocking. Then we determine what each key press does in the <em>handle_input</em> method by relying on Rust's great matching syntax. I mostly followed an <a href=https://github.com/crossterm-rs/crossterm/blob/master/examples/event-match-modifiers.rs>example</a> provided by Crossterm. The first option matches the combination of character <em>q</em> and modifier key <em>control</em>, and sets the should_quit value on the editor struct to true, breaking the main loop and exiting the program.<p>To delete an entire word "ctrl + h" is matched, because that is what my terminal outputs when pressing "ctrl + backspace". There is a chance that this is <a href=https://mdleom.com/blog/2023/07/17/ctrl-h-backspace/>different for you</a>. But correctly implementing a solution what works with all possible variations on ANSI Escape sequences seems a major pain and not worth it for a prototype. Lastly any other char is added to the text buffer so that it can be displayed on the screen.<pre class=language-rust data-lang=rust style=background:#2b303b;color:#c0c5ce><code class=language-rust data-lang=rust><span>...
+</span><span>
+</span><span style=color:#b48ead>impl </span><span>Editor {
+</span><span>
+</span><span>...
+</span><span>    </span><span style=color:#b48ead>pub fn </span><span style=color:#8fa1b3>run</span><span>(&</span><span style=color:#b48ead>mut </span><span style=color:#bf616a>self</span><span>) -> io::Result<()> {
+</span><span>        </span><span style=color:#bf616a>self</span><span>.</span><span style=color:#96b5b4>setup</span><span>()?;
+</span><span>        </span><span style=color:#b48ead>while </span><span>!</span><span style=color:#bf616a>self</span><span>.should_quit {
+</span><span>            </span><span style=color:#b48ead>if </span><span style=color:#96b5b4>poll</span><span>(Duration::from_millis(</span><span style=color:#d08770>500</span><span>))? {
+</span><span>                </span><span style=color:#b48ead>let</span><span> event = </span><span style=color:#96b5b4>read</span><span>()?;
+</span><span>                </span><span style=color:#bf616a>self</span><span>.</span><span style=color:#96b5b4>handle_input</span><span>(&event);
+</span><span>                </span><span style=color:#bf616a>self</span><span>.</span><span style=color:#96b5b4>draw_screen</span><span>(&</span><span style=color:#bf616a>self</span><span>.buffer.</span><span style=color:#96b5b4>render</span><span>(), </span><span style=color:#bf616a>self</span><span>.</span><span style=color:#96b5b4>calculate_wpm</span><span>())?;
+</span><span>            }
+</span><span>        }
+</span><span>        </span><span style=color:#bf616a>self</span><span>.</span><span style=color:#96b5b4>clean_up</span><span>()?;
+</span><span>        Ok(())
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#b48ead>fn </span><span style=color:#8fa1b3>handle_input</span><span>(&</span><span style=color:#b48ead>mut </span><span style=color:#bf616a>self</span><span>, </span><span style=color:#bf616a>event</span><span>: &Event) {
+</span><span>        </span><span style=color:#b48ead>match</span><span> event {
+</span><span>            Event::Key(KeyEvent {
+</span><span>                code: KeyCode::Char('</span><span style=color:#a3be8c>q</span><span>'),
+</span><span>                modifiers: KeyModifiers::</span><span style=color:#d08770>CONTROL</span><span>,
+</span><span>                ..
+</span><span>            }) => </span><span style=color:#bf616a>self</span><span>.should_quit = </span><span style=color:#d08770>true</span><span>,
+</span><span>            Event::Key(KeyEvent {
+</span><span>                code: KeyCode::Char('</span><span style=color:#a3be8c>h</span><span>'),
+</span><span>                modifiers: KeyModifiers::</span><span style=color:#d08770>CONTROL</span><span>,
+</span><span>                ..
+</span><span>            }) => </span><span style=color:#bf616a>self</span><span>.buffer.</span><span style=color:#96b5b4>del_word</span><span>(),
+</span><span>            Event::Key(KeyEvent {
+</span><span>                code: KeyCode::Backspace,
+</span><span>                ..
+</span><span>            }) => </span><span style=color:#bf616a>self</span><span>.buffer.</span><span style=color:#96b5b4>del_char</span><span>(),
+</span><span>            Event::Key(KeyEvent {
+</span><span>                code: KeyCode::Char(c),
+</span><span>                ..
+</span><span>            }) => </span><span style=color:#bf616a>self</span><span>.buffer.</span><span style=color:#96b5b4>add_char</span><span>(*c),
+</span><span>            _ => (),
+</span><span>        }
+</span><span>    }
+</span><span>    
+</span><span>    </span><span style=color:#b48ead>fn </span><span style=color:#8fa1b3>draw_screen</span><span>(&</span><span style=color:#b48ead>mut </span><span style=color:#bf616a>self</span><span>, </span><span style=color:#bf616a>text</span><span>: &String, </span><span style=color:#bf616a>wpm</span><span>: String) -> io::Result<()> {
+</span><span>        execute!(
+</span><span>            </span><span style=color:#bf616a>self</span><span>.stdout,
+</span><span>            terminal::Clear(terminal::ClearType::All),
+</span><span>            cursor::MoveTo(</span><span style=color:#d08770>0</span><span>, </span><span style=color:#d08770>0</span><span>),
+</span><span>            Print(wpm),
+</span><span>            cursor::MoveTo(</span><span style=color:#d08770>0</span><span>, </span><span style=color:#d08770>1</span><span>),
+</span><span>            Print(text),
+</span><span>        )?;
+</span><span>        Ok(())
+</span><span>    }
+</span><span>    
+</span><span>    </span><span style=color:#b48ead>fn </span><span style=color:#8fa1b3>calculate_wpm</span><span>(&</span><span style=color:#bf616a>self</span><span>) -> String {
+</span><span>        format!(
+</span><span>            "</span><span style=color:#a3be8c>WPM: </span><span style=color:#d08770>{}</span><span>",
+</span><span>            ((</span><span style=color:#bf616a>self</span><span>.buffer.</span><span style=color:#96b5b4>lenght</span><span>() as </span><span style=color:#b48ead>f64 </span><span>/ </span><span style=color:#d08770>5.0</span><span>)
+</span><span>                / (</span><span style=color:#bf616a>self</span><span>.start_time.</span><span style=color:#96b5b4>elapsed</span><span>().</span><span style=color:#96b5b4>as_secs</span><span>() as </span><span style=color:#b48ead>f64 </span><span>/ </span><span style=color:#d08770>60.0</span><span>)) as </span><span style=color:#b48ead>i32
+</span><span>        )
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>...
+</span></code></pre><p>Crossterm has <a href=https://docs.rs/crossterm/latest/crossterm/index.html#macros>macros</a> to execute commands; because they are macros you can just stack a bunch of commands in one execute block. Convenient! The <em>draw_screen</em> method first clears everything on screen. So for each user input the entire screen is wiped and re-drawn. Probably not the best for performance, but it keeps the implementation extremely simple.<p>The number of words per minute is calculated in the same way <a href=https://monkeytype.com/about>monkeytype</a> does, with a bit of rather ugly but effective code.<h3 id=storing-the-input>Storing the input</h3><p>Because the terminal does not keep track of input text in raw mode, we need a way to store the user input ourselves. I setup a struct named Buffer that contains some convenience methods over a String. The only method worth explaining is <em>del_words</em> which just keeps deleting characters until it deletes a space. The <code>let Some(c) = self.main_text.pop() else { break }</code> makes sure that the program won't crash if the buffer is empty, but the loop is still trying to pop off a character.<pre class=language-rust data-lang=rust style=background:#2b303b;color:#c0c5ce><code class=language-rust data-lang=rust><span>...
+</span><span>
+</span><span style=color:#b48ead>struct </span><span>Buffer {
+</span><span>    </span><span style=color:#bf616a>main_text</span><span>: String,
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead>impl </span><span>Buffer {
+</span><span>    </span><span style=color:#b48ead>pub fn </span><span style=color:#8fa1b3>default</span><span>() -> </span><span style=color:#b48ead>Self </span><span>{
+</span><span>        </span><span style=color:#b48ead>Self </span><span>{
+</span><span>            main_text: String::new(),
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#b48ead>pub fn </span><span style=color:#8fa1b3>add_char</span><span>(&</span><span style=color:#b48ead>mut </span><span style=color:#bf616a>self</span><span>, </span><span style=color:#bf616a>c</span><span>: </span><span style=color:#b48ead>char</span><span>) {
+</span><span>        </span><span style=color:#bf616a>self</span><span>.main_text.</span><span style=color:#96b5b4>push</span><span>(c);
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#b48ead>pub fn </span><span style=color:#8fa1b3>del_char</span><span>(&</span><span style=color:#b48ead>mut </span><span style=color:#bf616a>self</span><span>) {
+</span><span>        </span><span style=color:#bf616a>self</span><span>.main_text.</span><span style=color:#96b5b4>pop</span><span>();
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#b48ead>pub fn </span><span style=color:#8fa1b3>del_word</span><span>(&</span><span style=color:#b48ead>mut </span><span style=color:#bf616a>self</span><span>) {
+</span><span>        </span><span style=color:#b48ead>if </span><span style=color:#bf616a>self</span><span>.main_text.</span><span style=color:#96b5b4>ends_with</span><span>(' ') {
+</span><span>            </span><span style=color:#bf616a>self</span><span>.main_text.</span><span style=color:#96b5b4>pop</span><span>();
+</span><span>        }
+</span><span>        </span><span style=color:#b48ead>loop </span><span>{
+</span><span>            </span><span style=color:#b48ead>let </span><span>Some(c) = </span><span style=color:#bf616a>self</span><span>.main_text.</span><span style=color:#96b5b4>pop</span><span>() </span><span style=color:#b48ead>else </span><span>{ </span><span style=color:#b48ead>break </span><span>};
+</span><span>            </span><span style=color:#b48ead>if</span><span> c == ' ' {
+</span><span>                </span><span style=color:#bf616a>self</span><span>.main_text.</span><span style=color:#96b5b4>push</span><span>(' ');
+</span><span>                </span><span style=color:#b48ead>break</span><span>;
+</span><span>            };
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#b48ead>pub fn </span><span style=color:#8fa1b3>render</span><span>(&</span><span style=color:#bf616a>self</span><span>) -> String {
+</span><span>        </span><span style=color:#bf616a>self</span><span>.main_text.</span><span style=color:#96b5b4>clone</span><span>()
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#b48ead>pub fn </span><span style=color:#8fa1b3>lenght</span><span>(&</span><span style=color:#bf616a>self</span><span>) -> </span><span style=color:#b48ead>usize </span><span>{
+</span><span>        </span><span style=color:#bf616a>self</span><span>.main_text.</span><span style=color:#96b5b4>len</span><span>()
+</span><span>    }
+</span><span>}
+</span></code></pre><p>And that's all that is required to type text into the terminal and delete it! Not very useful by itself, but it will be the perfect playground to implement different tools to speed up text input.<p>I feel like this project let me peel back the curtain slightly on the complexity that is hidden in our terminals. It's fascinating to read <a href=https://wezfurlong.org/wezterm/what-is-a-terminal.html>about the legacy</a> that is still present in modern day terminal emulators.<p>It's also just fun to type into a little program build by yourself!<p>The next post will look into extending the buffer with functionality to correct misspelled words without looking at sentence context.<p>If you have any corrections for this post feel free to make <a href=https://github.com/Wolframfriele/wolframfriele.github.io/issues/new>an issue</a> on github.</article></main><footer><div id=links><a href=https://github.com/Wolframfriele>GitHub</a><a href=https://www.linkedin.com/in/wolframfriele/>LinkedIn</a><a href=https://github.com/Wolframfriele/wolframfriele.github.io/issues/new>Feedback</a><a href=https://wolframfriele.com/privacy-policy/>Privacy Policy</a></div></footer>
